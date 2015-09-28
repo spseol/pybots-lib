@@ -12,7 +12,7 @@ from pprint import pprint
 from urllib.parse import urlencode
 
 
-class mybot:
+class MyBot:
 
     def __init__(self, host='localhost', port='44822'):
         self.host = host
@@ -21,7 +21,7 @@ class mybot:
         self.conn.request("GET", "/")
         resp = self.conn.getresponse()
         if resp.status == 200:
-            data = resp.read().decode('utf-8')
+            data = resp.read().decode('UTF-8')
             data = json.loads(data)
             self.botid = data['id']
             # print(data['id'])
@@ -30,19 +30,19 @@ class mybot:
             print()
             pprint(resp.getheaders())
             print()
-            print(resp.read().decode('utf-8'))
+            print(resp.read().decode('UTF-8'))
             raise Exception("Hru se nepodařilo založit")
 
     def getmap(self):
         self.conn.request("GET", "/game/{}".format(self.botid))
         resp = self.conn.getresponse()
-        return json.loads(resp.read().decode('utf-8'))['map']
+        return json.loads(resp.read().decode('UTF-8'))['map']
 
     def get(self, path, **param):
         enc_param = urlencode(param)
         self.conn.request('GET', '{}?{}'.format(path, enc_param))
         resp = self.conn.getresponse()
-        return json.loads(resp.read().decode('utf-8'))
+        return json.loads(resp.read().decode('UTF-8'))
 
     def post(self, path, **param):
         enc_param = urlencode(param)
@@ -50,13 +50,13 @@ class mybot:
                    "Accept": "text/plain, application/json"}
         self.conn.request("POST", path, enc_param, headers)
         resp = self.conn.getresponse()
-        return json.loads(resp.read().decode('utf-8'))
+        return json.loads(resp.read().decode('UTF-8'))
 
     def __del__(self):
         self.conn.close()
 
 if __name__ == '__main__':
-    karel = mybot('hroch.spseol.cz')
+    karel = MyBot('hroch.spseol.cz')
     print(karel.getmap())
     print(karel.get('/game/{}'.format(karel.botid)))
     print(karel.get('/game/{}'.format(karel.botid), a=5, b='ahoj'))
