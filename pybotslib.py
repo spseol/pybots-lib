@@ -4,7 +4,7 @@
 # Datum:   27.09.2015 23:21
 # Autor:   Marek Nožka, nozka <@t> spseol <d.t> cz
 # Licence: GNU/GPL
-# Úloha:   a
+# Úloha:   Malá knihovna pro komunikaci s pybot-serverem
 ############################################################################
 import json
 import http.client
